@@ -25,16 +25,10 @@ def findpi(accuracy=10000):
         else:
             pidigits = pidigits - divide
             add = True
-        #checking for accuracy
         listedpidigits = list(str(pidigits))
         print(pidigits)
-        if loopnum % 100 == 0:
-            print(pidigits)
-        if loopnum % accuracy != 0:
-            time.sleep(.01)
-            continue
 
-        else:
+        if loopnum % accuracy == 0:
             pidigit = int(listedpidigits[int(loopnum / accuracy + 1)])
             try:
                 pidigit = int(listedpidigits[int(loopnum / accuracy + 1)])
@@ -44,6 +38,7 @@ def findpi(accuracy=10000):
             with open('pidigits.txt', 'a') as file:
                 file.write('%d' % pidigit)
                 print('Log Successful')
+            time.sleep(1)
             time.sleep(.01)
 
 input('Press enter to start:')
