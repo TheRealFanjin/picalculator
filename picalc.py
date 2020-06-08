@@ -1,10 +1,10 @@
 import time
-from decimal import Decimal
+import decimal
 
-
-def findpi(accuracy=10000):
-    x = Decimal(0)
-    pidigits = Decimal(3)
+def findpi(accuracy, numOfDigits):
+    decimal.getcontext().prec = numOfDigits + 1
+    x = decimal.Decimal('0')
+    pidigits = decimal.Decimal('3')
     loopnum = 0
     add = True
     while True:
@@ -14,22 +14,19 @@ def findpi(accuracy=10000):
             print('Checking for accuracy...')
         else:
             print('Waiting to log to pidigits.txt...')
-        x += Decimal(2)
-        x2 = x + Decimal(1)
-        x3 = x + Decimal(2)
+        x += decimal.Decimal('2')
+        x2 = x + decimal.Decimal('1')
+        x3 = x + decimal.Decimal('2')
         multiply = x * x2 * x3
-        divide = Decimal(4) / multiply
+        divide = decimal.Decimal('4') / multiply
         if add:
-            pidigits = pidigits + divide
+            pidigits = decimal.Decimal(pidigits + divide)
             add = False
         else:
-            pidigits = pidigits - divide
+            pidigits = decimal.Decimal(pidigits - divide)
             add = True
         listedpidigits = list(str(pidigits))
-        print(pidigits)
-
         if loopnum % accuracy == 0:
-            pidigit = int(listedpidigits[int(loopnum / accuracy + 1)])
             try:
                 pidigit = int(listedpidigits[int(loopnum / accuracy + 1)])
             except:
@@ -39,7 +36,6 @@ def findpi(accuracy=10000):
                 file.write('%d' % pidigit)
                 print('Log Successful')
             time.sleep(1)
-            time.sleep(.01)
-
-input('Press enter to start:')
-findpi()
+userAccuracy = int(input('Type the accuracy (Amount of loops before it writes to file): '))
+digits = int(input("Type the number of digits to solve for: "))
+findpi(userAccuracy, digits)
